@@ -1,0 +1,118 @@
+:root {
+    --navy: #07172f;
+    --navy-soft: #10294f;
+    --gold: #f6c85f;
+    --cyan: #54d6ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(84, 214, 255, 0.16), transparent 28rem),
+        radial-gradient(circle at bottom right, rgba(246, 200, 95, 0.14), transparent 24rem),
+        linear-gradient(135deg, #061225 0%, #0b1e3d 48%, #07172f 100%);
+    color: #f8fafc;
+}
+
+.glass {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(18px);
+}
+
+.glass-light {
+    border: 1px solid rgba(7, 23, 47, 0.08);
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 18px 45px rgba(7, 23, 47, 0.14);
+}
+
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple span.ripple {
+    position: absolute;
+    border-radius: 999px;
+    transform: scale(0);
+    animation: ripple 650ms linear;
+    background-color: rgba(255, 255, 255, 0.42);
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.candidate-card {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.candidate-card:hover,
+.candidate-card.is-selected {
+    transform: translateY(-6px);
+    border-color: rgba(246, 200, 95, 0.9);
+    box-shadow: 0 24px 55px rgba(6, 18, 37, 0.28);
+}
+
+.candidate-card.is-selected .select-badge {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.select-badge {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.modal-backdrop {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+}
+
+.modal-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-backdrop.is-open .modal-panel {
+    transform: translateY(0) scale(1);
+}
+
+.modal-panel {
+    transform: translateY(16px) scale(0.98);
+    transition: transform 180ms ease;
+}
+
+.progress-track {
+    background: rgba(7, 23, 47, 0.1);
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--cyan), var(--gold));
+    transition: width 450ms ease;
+}
+
+.navy-text {
+    color: var(--navy);
+}
+
+.focus-ring:focus {
+    outline: 3px solid rgba(84, 214, 255, 0.5);
+    outline-offset: 2px;
+}
