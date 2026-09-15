@@ -18,13 +18,15 @@ class Database
             $dbUser = getenv('DB_USER') ?: 'root';
             $dbPass = getenv('DB_PASS') ?: '';
             $dbCharset = getenv('DB_CHARSET') ?: 'utf8mb4';
+            $dbPort = getenv('DB_PORT') ?: '';
 
             $configFile = __DIR__ . '/../../config/database.php';
             if (file_exists($configFile)) {
                 include $configFile;
             }
 
-            $dsn = "mysql:host={$dbHost};dbname={$dbName};charset={$dbCharset}";
+            $portDsn = $dbPort !== '' ? ";port={$dbPort}" : '';
+            $dsn = "mysql:host={$dbHost}{$portDsn};dbname={$dbName};charset={$dbCharset}";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
