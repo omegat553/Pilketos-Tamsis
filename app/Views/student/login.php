@@ -20,9 +20,9 @@
             <div class="inline-flex items-center gap-5 rounded-2xl bg-white/95 p-3 shadow-lg">
                 <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-100 object-contain overflow-hidden">
                     <?php if (file_exists(__DIR__ . '/../../../assets/uploads/logo_1.png')): ?>
-                        <img class="h-full w-full object-contain" src="<?= get_logo_url(1, ''); ?>" alt="Logo SMAN 1 Gedeg">
+                        <img class="h-full w-full object-contain" src="<?= get_logo_url(1, ''); ?>" alt="Logo <?= e(SCHOOL_NAME); ?>">
                     <?php else: ?>
-                        <i class="fa-solid fa-graduation-cap text-[#07172f] text-lg" title="SMAN 1 Gedeg"></i>
+                        <i class="fa-solid fa-graduation-cap text-[#07172f] text-lg" title="<?= e(SCHOOL_NAME); ?>"></i>
                     <?php endif; ?>
                 </div>
                 <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-100 object-contain overflow-hidden">
@@ -46,7 +46,7 @@
                 <?php endif; ?>
             </div>
             <div class="space-y-4">
-                <h1 class="max-w-3xl text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">E-Voting Ketua OSIS SMAN 1 Gedeg</h1>
+                <h1 class="max-w-3xl text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl"><?= e(APP_NAME); ?></h1>
                 <p class="max-w-2xl text-lg leading-8 text-slate-200">Masuk dengan akun siswa untuk memberikan satu suara resmi pada Pemilihan Ketua OSIS.</p>
             </div>
             <div class="grid max-w-2xl gap-4 sm:grid-cols-3">

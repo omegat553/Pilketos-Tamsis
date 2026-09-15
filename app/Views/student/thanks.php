@@ -19,8 +19,8 @@
             <i class="fa-solid fa-check"></i>
         </div>
         <h1 class="text-3xl font-black text-white sm:text-5xl">Terima Kasih Telah Memilih</h1>
-        <p class="mt-6 text-lg leading-8 text-slate-200">Terima kasih telah berpartisipasi dalam Pemilihan Ketua OSIS SMAN 1 Gedeg.</p>
-        <p class="mt-3 text-lg leading-8 text-slate-200">Setiap pilihan adalah langkah untuk meningkatkan mutu SMAN 1 Gedeg.</p>
+        <p class="mt-6 text-lg leading-8 text-slate-200">Terima kasih telah berpartisipasi dalam Pemilihan Ketua OSIS <?= e(SCHOOL_NAME); ?>.</p>
+        <p class="mt-3 text-lg leading-8 text-slate-200">Setiap pilihan adalah langkah untuk meningkatkan mutu <?= e(SCHOOL_NAME); ?>.</p>
         <a href="<?= e(url('/logout')); ?>" class="btn-ripple mt-8 inline-flex items-center justify-center gap-3 rounded-2xl bg-[#f6c85f] px-8 py-4 font-black text-[#07172f] shadow-xl transition hover:-translate-y-0.5 hover:bg-white">
             <i class="fa-solid fa-house"></i>
             Selesai

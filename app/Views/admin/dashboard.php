@@ -251,7 +251,7 @@
                             <!-- Logo 1 SMANEG -->
                             <div class="border border-white/10 rounded-2xl p-4 bg-white/5 flex flex-col justify-between">
                                 <div>
-                                    <h3 class="text-xs font-bold text-[#f6c85f] mb-2">Logo 1: SMAN 1 Gedeg</h3>
+                                    <h3 class="text-xs font-bold text-[#f6c85f] mb-2">Logo 1: <?= e(SCHOOL_NAME); ?></h3>
                                     <div class="h-16 w-16 bg-white/10 rounded-xl mx-auto flex items-center justify-center mb-3 overflow-hidden">
                                         <?php if (file_exists(__DIR__ . '/../../../assets/uploads/logo_1.png')): ?>
                                             <img class="h-full w-full object-contain" src="<?= get_logo_url(1, ''); ?>" alt="Logo 1">

@@ -19,9 +19,9 @@
         <div class="flex items-center justify-center gap-6 rounded-2xl bg-white/95 p-4 mb-6 shadow-inner">
             <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-slate-100 object-contain overflow-hidden">
                 <?php if (file_exists(__DIR__ . '/../../../assets/uploads/logo_1.png')): ?>
-                    <img class="h-full w-full object-contain" src="<?= get_logo_url(1, ''); ?>" alt="Logo SMAN 1 Gedeg">
+                    <img class="h-full w-full object-contain" src="<?= get_logo_url(1, ''); ?>" alt="Logo <?= e(SCHOOL_NAME); ?>">
                 <?php else: ?>
-                    <i class="fa-solid fa-graduation-cap text-[#07172f] text-xl" title="SMAN 1 Gedeg"></i>
+                    <i class="fa-solid fa-graduation-cap text-[#07172f] text-xl" title="<?= e(SCHOOL_NAME); ?>"></i>
                 <?php endif; ?>
             </div>
             <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-slate-100 object-contain overflow-hidden">

@@ -68,11 +68,11 @@
                 <div class="grid gap-4 sm:grid-cols-2">
                     <label class="block">
                         <span class="mb-2 block text-xs font-semibold text-slate-200">Username Admin Baru</span>
-                        <input class="focus-ring w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 font-semibold text-slate-900 text-sm" type="text" name="admin_user" value="admin" required>
+                        <input class="focus-ring w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 font-semibold text-slate-900 text-sm" type="text" name="admin_user" value="Osmantamsis1@" required>
                     </label>
                     <label class="block">
                         <span class="mb-2 block text-xs font-semibold text-slate-200">Password Admin (Min. 8 Karakter)</span>
-                        <input class="focus-ring w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 font-semibold text-slate-900 text-sm" type="password" name="admin_pass" value="password" minlength="8" required>
+                        <input class="focus-ring w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 font-semibold text-slate-900 text-sm" type="password" name="admin_pass" minlength="8" required>
                     </label>
                 </div>
             </div>
