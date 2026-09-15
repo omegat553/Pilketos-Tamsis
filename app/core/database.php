@@ -13,11 +13,11 @@ class Database
     public static function getConnection(): PDO
     {
         if (self::$pdo === null) {
-            $dbHost = 'localhost';
-            $dbName = 'evoting_osis_gedeg';
-            $dbUser = 'root';
-            $dbPass = '';
-            $dbCharset = 'utf8mb4';
+            $dbHost = getenv('DB_HOST') ?: 'localhost';
+            $dbName = getenv('DB_NAME') ?: 'evoting_osis_gedeg';
+            $dbUser = getenv('DB_USER') ?: 'root';
+            $dbPass = getenv('DB_PASS') ?: '';
+            $dbCharset = getenv('DB_CHARSET') ?: 'utf8mb4';
 
             $configFile = __DIR__ . '/../../config/database.php';
             if (file_exists($configFile)) {
