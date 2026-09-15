@@ -1,6 +1,24 @@
 <?php
 declare(strict_types=1);
 
-// Vercel PHP Function entrypoint. The original request URI remains available
-// to the application's router after Vercel rewrites the request here.
+// Serve public assets from the read-only deployment bundle. All other paths
+// are handled by the application router below, so PHP source is never public.
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+if (str_starts_with($path, '/assets/')) {
+    $assetRoot = realpath(__DIR__ . '/../assets');
+    $assetFile = realpath(__DIR__ . '/..' . $path);
+
+    if ($assetRoot !== false && $assetFile !== false && str_starts_with($assetFile, $assetRoot . DIRECTORY_SEPARATOR) && is_file($assetFile)) {
+        $mimeType = mime_content_type($assetFile) ?: 'application/octet-stream';
+        header('Content-Type: ' . $mimeType);
+        header('Cache-Control: public, max-age=3600');
+        readfile($assetFile);
+        exit;
+    }
+
+    http_response_code(404);
+    exit;
+}
+
+// The original request URI remains available after Vercel rewrites it here.
 require_once __DIR__ . '/../index.php';
