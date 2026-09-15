@@ -38,7 +38,7 @@ class InstallController extends Controller
             $dbName = Security::sanitizeInput($_POST['db_name'] ?? 'evoting_osis_gedeg');
             $username = Security::sanitizeInput($_POST['username'] ?? 'root');
             $password = (string) ($_POST['password'] ?? '');
-
+            
             $adminUser = Security::sanitizeInput($_POST['admin_user'] ?? 'admin');
             $adminPass = (string) ($_POST['admin_pass'] ?? 'password');
 
@@ -50,7 +50,7 @@ class InstallController extends Controller
                 try {
                     $pdo = null;
                     $dsnWithDb = "mysql:host={$host};port={$port};dbname={$dbName};charset=utf8mb4";
-
+                    
                     // Step 1 & 2: Detect if database exists by trying to connect to it first
                     try {
                         $pdo = new PDO($dsnWithDb, $username, $password, [
@@ -73,7 +73,7 @@ class InstallController extends Controller
                                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                             ]);
                             $pdoWithoutDb->exec("CREATE DATABASE IF NOT EXISTS `{$dbName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-
+                            
                             // Reconnect with target database
                             $pdo = new PDO($dsnWithDb, $username, $password, [
                                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -90,11 +90,11 @@ class InstallController extends Controller
                     }
 
                     $sqlContent = file_get_contents($sqlFile);
-
+                    
                     // Strip CREATE DATABASE and USE statements dynamically to avoid switching back to evoting_osis_gedeg
                     $sqlContent = preg_replace('/CREATE DATABASE[^;]+;/i', '', $sqlContent);
                     $sqlContent = preg_replace('/USE [^;]+;/i', '', $sqlContent);
-
+                    
                     $pdo->exec($sqlContent);
 
                     // Step 5: Setup customized admin account

@@ -22,6 +22,14 @@ spl_autoload_register(function (string $class) {
 // Load konfigurasi aplikasi
 require_once __DIR__ . '/config/app.php';
 
+// Tentukan URL dasar secara otomatis agar aplikasi tetap berjalan saat
+// dipasang di domain utama maupun di dalam subfolder.
+if (!defined('BASE_URL')) {
+    $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '/index.php');
+    $baseUrl = rtrim(dirname($scriptName), '/');
+    define('BASE_URL', $baseUrl === '/' || $baseUrl === '.' ? '' : $baseUrl);
+}
+
 // Inisialisasi Sesi secara aman
 \App\Core\Session::start();
 
@@ -50,20 +58,31 @@ if (!function_exists('page_title')) {
     }
 }
 
+if (!function_exists('url')) {
+    function url(string $path = ''): string
+    {
+        $base = defined('BASE_URL') ? BASE_URL : '';
+        $path = '/' . ltrim($path, '/');
+        return $base . $path;
+    }
+}
+
 if (!function_exists('get_logo_url')) {
     function get_logo_url(int $num, string $default): string
     {
+        $base = defined('BASE_URL') ? BASE_URL : '';
         $path = "assets/uploads/logo_{$num}.png";
         $file = __DIR__ . '/' . $path;
-        return file_exists($file) ? '/' . $path . '?v=' . filemtime($file) : $default;
+        return file_exists($file) ? $base . '/' . $path . '?v=' . filemtime($file) : $default;
     }
 }
 
 if (!function_exists('get_favicon_url')) {
     function get_favicon_url(string $default): string
     {
+        $base = defined('BASE_URL') ? BASE_URL : '';
         $path = "assets/uploads/favicon.png";
         $file = __DIR__ . '/' . $path;
-        return file_exists($file) ? '/' . $path . '?v=' . filemtime($file) : $default;
+        return file_exists($file) ? $base . '/' . $path . '?v=' . filemtime($file) : $default;
     }
 }

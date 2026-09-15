@@ -15,7 +15,7 @@ class Session
 
             // Set secure cookie if HTTPS is detected
             $isSecure = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
-                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+                        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
             if ($isSecure) {
                 ini_set('session.cookie_secure', '1');
             }

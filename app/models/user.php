@@ -48,16 +48,16 @@ class User extends BaseModel
         }
 
         $sql .= ' ORDER BY id ASC LIMIT ? OFFSET ?';
-
+        
         $stmt = $this->db->prepare($sql);
-
+        
         $idx = 1;
         foreach ($params as $param) {
             $stmt->bindValue($idx++, $param);
         }
         $stmt->bindValue($idx++, $limit, \PDO::PARAM_INT);
         $stmt->bindValue($idx++, $offset, \PDO::PARAM_INT);
-
+        
         $stmt->execute();
         return $stmt->fetchAll();
     }

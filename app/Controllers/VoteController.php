@@ -68,7 +68,7 @@ class VoteController extends Controller
         if (!Session::get('vote_success')) {
             $this->redirect('/login');
         }
-
+        
         // Remove the temporary vote success state upon rendering
         Session::remove('vote_success');
         $this->render('student/thanks');

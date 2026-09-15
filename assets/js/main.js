@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initAdminControls();
 });
 
+const appUrl = (path) => `${window.APP_BASE_URL || ''}${path}`;
+
 function initVotingPage() {
     const form = document.querySelector('[data-vote-form]');
     if (!form) return;
@@ -68,7 +70,7 @@ function initDashboard() {
 
     async function loadStats() {
         try {
-            const response = await fetch('/api/stats', {
+            const response = await fetch(appUrl('/api/stats'), {
                 headers: { 'Accept': 'application/json' },
                 credentials: 'same-origin',
             });
@@ -242,9 +244,9 @@ function initAdminControls() {
         async function loadCodes() {
             try {
                 codesTableBody.innerHTML = '<tr><td colspan="4" class="px-5 py-8 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat data...</td></tr>';
-
-                const url = `/admin/codes/list?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(search)}&status=${status}`;
-                const response = await fetch(url, {
+                
+                const requestUrl = `${appUrl('/admin/codes/list')}?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(search)}&status=${status}`;
+                const response = await fetch(requestUrl, {
                     headers: { 'Accept': 'application/json' },
                     credentials: 'same-origin',
                 });
@@ -269,12 +271,12 @@ function initAdminControls() {
             data.forEach((row, index) => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-b border-white/5 hover:bg-white/5 transition';
-
+                
                 const num = startNum + index + 1;
-                const statusBadge = row.status_vote === 'sudah'
+                const statusBadge = row.status_vote === 'sudah' 
                     ? '<span class="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/20"><i class="fa-solid fa-check-circle mr-1"></i>Sudah Memilih</span>'
                     : '<span class="rounded-full bg-yellow-500/20 px-3 py-1 text-xs font-bold text-yellow-400 border border-yellow-500/20"><i class="fa-solid fa-clock mr-1"></i>Belum Memilih</span>';
-
+                
                 // Format Date
                 const dateObj = new Date(row.created_at);
                 const formattedDate = dateObj.toLocaleDateString('id-ID', {
@@ -297,7 +299,7 @@ function initAdminControls() {
 
         function updatePaginationControls(current, total, totalRecords) {
             currentPage = current;
-
+            
             const startRange = totalRecords > 0 ? (current - 1) * limit + 1 : 0;
             const endRange = Math.min(current * limit, totalRecords);
             paginationInfo.textContent = `Menampilkan ${startRange} - ${endRange} dari ${totalRecords}`;

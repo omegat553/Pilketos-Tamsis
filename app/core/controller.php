@@ -21,6 +21,9 @@ abstract class Controller
 
     protected function redirect(string $url): never
     {
+        if (defined('BASE_URL') && BASE_URL !== '' && str_starts_with($url, '/') && !str_starts_with($url, BASE_URL . '/')) {
+            $url = BASE_URL . $url;
+        }
         header("Location: {$url}");
         exit;
     }

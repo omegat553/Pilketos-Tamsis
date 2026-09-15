@@ -71,11 +71,11 @@ class AdminController extends Controller
                 } else {
                     try {
                         $adminModel->updatePassword($adminId, password_hash($newPassword, PASSWORD_DEFAULT));
-
+                        
                         $db = \App\Core\Database::getConnection();
                         $updateUsername = $db->prepare('UPDATE admin SET username = ? WHERE id = ?');
                         $updateUsername->execute([$username, $adminId]);
-
+                        
                         Session::set('admin_username', $username);
                         Session::flash('success', 'Username dan password admin berhasil diperbarui.');
                     } catch (PDOException $exception) {
@@ -212,7 +212,7 @@ class AdminController extends Controller
 
                 $ext = $allowedExtensions[$mimeType];
                 $filename = 'candidate_' . $id . '_' . time() . '.' . $ext;
-
+                
                 $uploadDir = __DIR__ . '/../../assets/uploads/';
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
@@ -382,10 +382,10 @@ class AdminController extends Controller
         header('Content-Disposition: attachment; filename=daftar_kode_peserta_' . date('Ymd_His') . '.csv');
 
         $output = fopen('php://output', 'w');
-
+        
         // Add UTF-8 BOM for Excel compatibility
-        fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
-
+        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+        
         fputcsv($output, ['Kode Peserta', 'Status Voting']);
 
         foreach ($codes as $row) {

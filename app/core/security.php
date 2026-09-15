@@ -15,7 +15,7 @@ class Security
         header("X-Frame-Options: DENY");
         header("X-Content-Type-Options: nosniff");
         header("Referrer-Policy: same-origin");
-
+        
         // Dynamic Content-Security-Policy supporting CDN dependencies used in UI
         header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self';");
     }

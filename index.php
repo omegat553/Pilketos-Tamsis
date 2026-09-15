@@ -25,10 +25,20 @@ $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($requestUri, PHP_URL_PATH);
 $path = '/' . trim($path, '/');
 
+// Hilangkan folder instalasi dari URI sebelum dicocokkan dengan rute aplikasi.
+if (BASE_URL !== '' && ($path === BASE_URL || str_starts_with($path, BASE_URL . '/'))) {
+    $path = substr($path, strlen(BASE_URL)) ?: '/';
+}
+
 // Normalize legacy .php extensions to clean URLs (301 redirect)
 if (str_ends_with($path, '.php')) {
+    if ($path === '/index.php') {
+        header('Location: ' . url('/'), true, 301);
+        exit;
+    }
+
     $cleanPath = substr($path, 0, -4);
-    header("Location: {$cleanPath}", true, 301);
+    header('Location: ' . url($cleanPath), true, 301);
     exit;
 }
 
@@ -37,11 +47,11 @@ try {
     switch ($path) {
         case '/':
             if (\App\Core\Session::has('user_id') && \App\Core\Session::has('user_username')) {
-                header('Location: /vote');
+                header('Location: ' . url('/vote'));
             } elseif (\App\Core\Session::has('admin_id') && \App\Core\Session::has('admin_username')) {
-                header('Location: /admin');
+                header('Location: ' . url('/admin'));
             } else {
-                header('Location: /login');
+                header('Location: ' . url('/login'));
             }
             exit;
 
@@ -147,7 +157,7 @@ try {
                 <?= e($exception->getMessage()); ?>
             </div>
 
-            <a href="/install"
+            <a href="<?= e(url('/install')); ?>"
                 class="btn-ripple flex items-center justify-center gap-2 rounded-2xl bg-[#f6c85f] px-5 py-3.5 font-black text-[#07172f] shadow-xl transition hover:bg-white">
                 <i class="fa-solid fa-circle-play"></i> Mulai Instalasi
             </a>
