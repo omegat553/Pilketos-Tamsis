@@ -9,7 +9,18 @@ if (str_starts_with($path, '/assets/')) {
     $assetFile = realpath(__DIR__ . '/..' . $path);
 
     if ($assetRoot !== false && $assetFile !== false && str_starts_with($assetFile, $assetRoot . DIRECTORY_SEPARATOR) && is_file($assetFile)) {
-        $mimeType = mime_content_type($assetFile) ?: 'application/octet-stream';
+        $mimeTypes = [
+            'css' => 'text/css; charset=UTF-8',
+            'js' => 'application/javascript; charset=UTF-8',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'webp' => 'image/webp',
+            'svg' => 'image/svg+xml',
+            'ico' => 'image/x-icon',
+        ];
+        $extension = strtolower(pathinfo($assetFile, PATHINFO_EXTENSION));
+        $mimeType = $mimeTypes[$extension] ?? mime_content_type($assetFile) ?: 'application/octet-stream';
         header('Content-Type: ' . $mimeType);
         header('Cache-Control: public, max-age=3600');
         readfile($assetFile);
